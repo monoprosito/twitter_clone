@@ -8,6 +8,8 @@
  * @link   https://stackoverflow.com/a/15875555
  */
 
+
+namespace TwitterClone\Uuid;
 /**
  * Uuid Class
  *
