@@ -41,8 +41,8 @@
                     <div class="row">
                         <span class="home-login-subtitle">Join Twitter today.</span>
                     </div>
-                    <a href="#" class="primary-button">Sign up</a>
-                    <a href="#" class="secondary-button">Log in</a>
+                    <a href="<?php echo "http://localhost:8080/twitter_clone/public/signUp.php"; ?>" class="primary-button">Sign up</a>
+                    <a href="<?php echo "http://localhost:8080/twitter_clone/public/login.php"; ?>" class="secondary-button">Log in</a>
                 </div>
             </section>
         </div>
