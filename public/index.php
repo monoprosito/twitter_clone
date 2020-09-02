@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.css">
     <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/buttons.css">
     <title>Twitter. It's what's happening / Twitter</title>
 </head>
 <body>
