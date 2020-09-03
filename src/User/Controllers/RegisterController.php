@@ -97,7 +97,7 @@ class RegisterController extends UserController
     }
 
     /**
-     * Stores the user instance in the Engine Storage.
+     * Stores the user instance in the Storage Engine.
      *
      * @param string $username The nickname of the user.
      * @param string $email The email of the user.
@@ -108,7 +108,10 @@ class RegisterController extends UserController
      */
     public function storeUser($username, $email, $password, $phoneNumber)
     {
-        if (!User::exists($username, $email)) {
+        $userByUsername = User::getUserBy('username', $username);
+        $userByEmail = User::getUserBy('email', $email);
+
+        if (empty((array) $userByUsername) && empty((array) $userByEmail)) {
             $user = new User($username, $email, password_hash($password, PASSWORD_DEFAULT), $phoneNumber);
             $user->save();
 

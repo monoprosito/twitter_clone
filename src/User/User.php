@@ -140,26 +140,44 @@ class User extends Base
     }
 
     /**
-     * Verify if an User already exists.
+     * Get all the User objects from the Storage Engine.
      *
-     * @param string $username The nickname of the user as unique key.
-     * @param string $email The email of the user as unique key.
-     *
-     * @return bool
+     * @return array
      */
-    public static function exists($username, $email) {
+    public static function getUserInstances()
+    {
         $storage = Engine::getStorage()->getAllObjects();
 
-        if ($storage == null)
-            return false;
+        if (empty($storage))
+            return [];
+        else
+            return array_filter($storage, function($element) {
+                return is_a($element, User::class);
+            });
 
-        $users = array_filter($storage, function($element) { return is_a($element, User::class); });
+    }
 
-        foreach ($users as $user) {
-            if ($user->getUsername() === $username || $user->getEmail($email) === $email)
-                return true;
-        }
+    /**
+     * Get an User instance by a property.
+     *
+     * @param string $property The property with which you
+     * will search for the user.
+     * @param string $value The value of the property to
+     * search for the user.
+     *
+     * @return object
+     */
+    public static function getUserBy($property, $value)
+    {
+        $users = User::getUserInstances();
+        $capitalizedProperty = ucfirst(strtolower($property));
+        $getProperty = "get$capitalizedProperty";
 
-        return false;
+        if (empty($users))
+            return (object) [];
+        else
+            foreach ($users as $user)
+                if ($user->$getProperty() === $value)
+                    return $user;
     }
 }
