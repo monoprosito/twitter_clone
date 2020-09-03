@@ -32,8 +32,9 @@
                 <input type="tel" id="phoneNumberInput" name="phoneNumber">
             </div>
             <a href="<?php echo "http://localhost:8080/twitter_clone/public/login.php"; ?>">Already have an account?</a>
-            <a class="primary-button">Submit</a>
+            <a class="primary-button" id="submitForm">Submit</a>
         </form>
     </div>
+    <script src="scripts/signUp.js"></script>
 </body>
 </html>
