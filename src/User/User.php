@@ -11,6 +11,7 @@
 namespace TwitterClone\User;
 
 use TwitterClone\Base;
+use TwitterClone\Engine\Engine;
 
 /**
  * User Class
@@ -136,5 +137,29 @@ class User extends Base
     public function setPhoneNumber(string $phoneNumber)
     {
         $this->_phoneNumber = $phoneNumber;
+    }
+
+    /**
+     * Verify if an User already exists.
+     *
+     * @param string $username The nickname of the user as unique key.
+     * @param string $email The email of the user as unique key.
+     *
+     * @return bool
+     */
+    public static function exists($username, $email) {
+        $storage = Engine::getStorage()->getAllObjects();
+
+        if ($storage == null)
+            return false;
+
+        $users = array_filter($storage, function($element) { return is_a($element, User::class); });
+
+        foreach ($users as $user) {
+            if ($user->getUsername() === $username || $user->getEmail($email) === $email)
+                return true;
+        }
+
+        return false;
     }
 }
