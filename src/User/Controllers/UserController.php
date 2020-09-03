@@ -11,7 +11,6 @@
 namespace TwitterClone\User\Controllers;
 
 use Exception;
-use TwitterClone\User\User;
 
 class InvalidUsername extends Exception {}
 class InvalidEmail extends Exception {}
@@ -21,86 +20,11 @@ class InvalidPhoneNumber extends Exception {}
 /**
  * UserController Class
  *
- * The UserControlelr Class Descriptiom
- *
- * The UserController handles a payload to notify the user
- * with the result of every respective request.
+ * The UserController defines the validator methods for the
+ * User Model attributes.
  */
 class UserController
 {
-    /**
-     * Checks if the data of a request to store a user is valid
-     * and proceed to store it in the Storage Engine.
-     *
-     * This method establish the process to validate the user data,
-     * depending the answer of the validator method, the flow will
-     * proceed to store the user, and return a succeed payload, or
-     * notify the reason for the issue in an error payload.
-     *
-     * @param object $user The user data to verifies and store.
-     *
-     * @return void
-     */
-    public static function registerUser($user)
-    {
-        $userController = (new self);
-        $inputDataPayload = $userController->checkUserInputData($user);
-
-        if ($inputDataPayload->success) {
-            $payload = $userController->storeUser($user->username, $user->email, $user->password, $user->phoneNumber);
-        } else {
-            $payload = $inputDataPayload;
-        }
-
-        echo json_encode($payload);
-    }
-
-    /**
-     * Checks if all the data of a user is correctly structured to
-     * make a User instance with this data.
-     *
-     * This method establish the process to call every validator
-     * method and pass the respective parameter to know if each
-     * parameter from the input user data is valid. In case of
-     * analyzing an invalid data, the method catch the Exception
-     * and returns an error payload. Otherwise, a success payload
-     * is returned.
-     *
-     * @param object $user The input user data to verifies.
-     *
-     * @return object
-     */
-    public function checkUserInputData($user)
-    {
-        try {
-            $this->checkUsername($user->username);
-            $this->checkEmail($user->email);
-            $this->checkPassword($user->password);
-            $this->checkPhoneNumber($user->phoneNumber);
-            $success = 1;
-            $message = 'All the data is valid.';
-        } catch (InvalidUsername $e) {
-            $success = 0;
-            $message = $e->getMessage();
-        } catch (InvalidEmail $e) {
-            $message = $e->getMessage();
-            $success = 0;
-        } catch (InvalidPassword $e) {
-            $success = 0;
-            $message = $e->getMessage();
-        } catch (InvalidPhoneNumber $e) {
-            $success = 0;
-            $message = $e->getMessage();
-        }
-
-        return (object) [
-            'success' => $success,
-            'data' => [
-                'message' => $message
-            ]
-        ];
-    }
-
     /**
      * Verifies that the nickname has at least 4 letters and 2 numbers.
      * Also, that it does not contain any special characters.
@@ -177,39 +101,5 @@ class UserController
 
         if ($phoneNumber == null || !preg_match($pattern, $phoneNumber))
             throw new InvalidPhoneNumber('The phone number should have at least 10 numbers. All the characters must be numbers.');
-    }
-
-    /**
-     * Stores the user instance in the Engine Storage.
-     *
-     * @param string $username The nickname of the user.
-     * @param string $email The email of the user.
-     * @param string $password The password of the user.
-     * @param string $phoneNumber The phone number of the user.
-     *
-     * @return array
-     */
-    public function storeUser($username, $email, $password, $phoneNumber)
-    {
-        if (!User::exists($username, $email)) {
-            $user = new User($username, $email, $password, $phoneNumber);
-            $user->save();
-
-            $payload = [
-                'success' => 1,
-                'data' => [
-                    'message' => 'The user has been created correctly.'
-                ]
-            ];
-        } else {
-            $payload = [
-                'success' => 0,
-                'data' => [
-                    'message' => 'This user already exists.'
-                ]
-            ];
-        }
-
-        return $payload;
     }
 }

@@ -13,10 +13,10 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use TwitterClone\User\Controllers\UserController;
+use TwitterClone\User\Controllers\RegisterController;
 
 header('Content-Type: application/json');
 
 $data = json_decode(file_get_contents("php://input"));
 
-UserController::registerUser($data);
+RegisterController::registerUser($data);
