@@ -1,3 +1,15 @@
+<?php
+
+// Initialize the session
+session_start();
+
+// If the user is logged in will be redirect to the wall page
+if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true){
+    header("location: wall.php");
+    exit;
+}
+
+?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 <head>
@@ -69,3 +81,23 @@
     <script src="scripts/index.js"></script>
 </body>
 </html>
+
+<?php
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use TwitterClone\User\User;
+use TwitterClone\Message\Message;
+
+/*
+$santiago = new User('msarboledal', 'monoprosito@gmail.com', 'A-123456', '3002763962');
+$dario = new User('dariorubio', 'dariorubio.arboleda@gmail.com', 'B-123456', '3002547852');
+
+
+$santiago->save();
+$dario->save();
+
+$message = new Message('6682ecf7-7915-4bf9-9c56-5ab3122f1c1d', 'First tweet');
+$message->save();
+
+*/
