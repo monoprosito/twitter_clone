@@ -82,12 +82,9 @@ class LoginController extends UserController
             $this->checkPassword($user->password);
             $success = self::SUCCESSFUL_PAYLOAD;
             $message = 'All the data is valid.';
-        } catch (InvalidEmail $e) {
+        } catch (InvalidEmail | InvalidPassword$e) {
             $message = $e->getMessage();
             $success = self::UNSUCCESSFUL_PAYLOAD;
-        } catch (InvalidPassword $e) {
-            $success = self::UNSUCCESSFUL_PAYLOAD;
-            $message = $e->getMessage();
         }
 
         return (object) [
