@@ -1,5 +1,8 @@
 const $tweetMessageArea = document.getElementById('tweetMessage');
 const $tweetLimitArea = document.getElementById('tweetLimit');
+const $tweetButton = document.getElementById('submitForm');
+
+const TWEET_MESSAGE_ENDPOINT = 'http://localhost:8080/twitter_clone/public/tweet.php';
 const TWEET_LIMIT_LENGTH = 280;
 const TWEET_LIMIT_WARNING = TWEET_LIMIT_LENGTH - 20;
 
@@ -24,3 +27,22 @@ $tweetMessageArea.addEventListener('keyup', () => {
         }
     }
 });
+
+$tweetButton.addEventListener('click', (event) => {
+    event.preventDefault();
+
+    const message = {
+        'text': $tweetMessageArea.value,
+    }
+
+    fetch(TWEET_MESSAGE_ENDPOINT, {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(message)
+    })
+    .then((res) => res.json())
+    .then((data) => console.log(data))
+    .catch((error) => console.log(error));
+}, false);
