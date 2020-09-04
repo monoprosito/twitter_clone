@@ -31,10 +31,14 @@ class Message extends Base
      */
     private $_text;
 
-    public function __construct($authorId, $text, $id = null)
+    public function __construct($authorId, $text, $id = null, $createdAt = null)
     {
-        if ($id)
+        if ($id && $createdAt)
+            parent::__construct($id, $createdAt);
+        else if ($id)
             parent::__construct($id);
+        else if ($createdAt)
+            parent::__construct($createdAt);
         else
             parent::__construct();
 

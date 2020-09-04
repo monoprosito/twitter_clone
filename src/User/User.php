@@ -42,10 +42,15 @@ class User extends Base
      */
     private $_phoneNumber;
 
-    public function __construct($username, $email, $password, $phoneNumber, $id = null)
+    public function __construct($username, $email, $password, $phoneNumber,
+                                $id = null, $createdAt = null)
     {
-        if ($id)
+        if ($id && $createdAt)
+            parent::__construct($id, $createdAt);
+        else if ($id)
             parent::__construct($id);
+        else if ($createdAt)
+            parent::__construct($createdAt);
         else
             parent::__construct();
 
