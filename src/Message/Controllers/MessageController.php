@@ -31,6 +31,16 @@ class MessageController
     const TWEET_MAX_LENGTH = 280;
 
     /**
+     * @var SUCCESSFUL_PAYLOAD Indicates that a request was successful. 1 is equal to TRUE.
+     */
+    const SUCCESSFUL_PAYLOAD = 1;
+
+    /**
+     * @var UNSUCCESSFUL_PAYLOAD Indicates that a request was unsuccessful. 0 is equal to FALSE.
+     */
+    const UNSUCCESSFUL_PAYLOAD = 0;
+
+    /**
      * Checks if the data of a request to store a Tweet is valid
      * and proceed to store it in the Storage Engine.
      *
@@ -77,10 +87,10 @@ class MessageController
         try {
             $this->checkTweetMessage($message->text);
             $this->checkTweetAuthor($message->author);
-            $success = 1;
+            $success = self::SUCCESSFUL_PAYLOAD;
             $message = 'All the data is valid.';
         } catch (EmptyTweet | TweetWithExceededCharacters | NonExistentUser $e) {
-            $success = 0;
+            $success = self::UNSUCCESSFUL_PAYLOAD;
             $message = $e->getMessage();
         }
 
@@ -149,7 +159,7 @@ class MessageController
         $tweet->save();
 
         $payload = [
-            'success' => 1,
+            'success' => self::SUCCESSFUL_PAYLOAD,
             'data' => [
                 'message' => 'The tweet has been created correctly.'
             ]

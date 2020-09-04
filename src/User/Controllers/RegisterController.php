@@ -24,6 +24,16 @@ use TwitterClone\User\User;
 class RegisterController extends UserController
 {
     /**
+     * @var SUCCESSFUL_PAYLOAD Indicates that a request was successful. 1 is equal to TRUE.
+     */
+    const SUCCESSFUL_PAYLOAD = 1;
+
+    /**
+     * @var UNSUCCESSFUL_PAYLOAD Indicates that a request was unsuccessful. 0 is equal to FALSE.
+     */
+    const UNSUCCESSFUL_PAYLOAD = 0;
+
+    /**
      * Checks if the data of a request to store a user is valid
      * and proceed to store it in the Storage Engine.
      *
@@ -72,10 +82,10 @@ class RegisterController extends UserController
             $this->checkEmail($user->email);
             $this->checkPassword($user->password);
             $this->checkPhoneNumber($user->phoneNumber);
-            $success = 1;
+            $success = self::SUCCESSFUL_PAYLOAD;
             $message = 'All the data is valid.';
         } catch (InvalidUsername | InvalidEmail | InvalidPassword | InvalidPhoneNumber $e) {
-            $success = 0;
+            $success = self::UNSUCCESSFUL_PAYLOAD;
             $message = $e->getMessage();
         }
 
@@ -107,14 +117,14 @@ class RegisterController extends UserController
             $user->save();
 
             $payload = [
-                'success' => 1,
+                'success' => self::SUCCESSFUL_PAYLOAD,
                 'data' => [
                     'message' => 'The user has been created correctly.'
                 ]
             ];
         } else {
             $payload = [
-                'success' => 0,
+                'success' => self::UNSUCCESSFUL_PAYLOAD,
                 'data' => [
                     'message' => 'This user already exists.'
                 ]

@@ -24,6 +24,16 @@ use TwitterClone\User\User;
 class LoginController extends UserController
 {
     /**
+     * @var SUCCESSFUL_PAYLOAD Indicates that a request was successful. 1 is equal to TRUE.
+     */
+    const SUCCESSFUL_PAYLOAD = 1;
+
+    /**
+     * @var UNSUCCESSFUL_PAYLOAD Indicates that a request was unsuccessful. 0 is equal to FALSE.
+     */
+    const UNSUCCESSFUL_PAYLOAD = 0;
+
+    /**
      * Checks if the data of a request to login is valid
      * and proceed to logon the user.
      *
@@ -70,13 +80,13 @@ class LoginController extends UserController
         try {
             $this->checkEmail($user->email);
             $this->checkPassword($user->password);
-            $success = 1;
+            $success = self::SUCCESSFUL_PAYLOAD;
             $message = 'All the data is valid.';
         } catch (InvalidEmail $e) {
             $message = $e->getMessage();
-            $success = 0;
+            $success = self::UNSUCCESSFUL_PAYLOAD;
         } catch (InvalidPassword $e) {
-            $success = 0;
+            $success = self::UNSUCCESSFUL_PAYLOAD;
             $message = $e->getMessage();
         }
 
@@ -112,14 +122,14 @@ class LoginController extends UserController
                 $_SESSION['user_id'] = $user->getId();
 
                 $payload = [
-                    'success' => true,
+                    'success' => self::SUCCESSFUL_PAYLOAD,
                     'data' => [
                         'message' => 'You have successfully logged in.'
                     ]
                 ];
             } else {
                 $payload = [
-                    'success' => false,
+                    'success' => self::UNSUCCESSFUL_PAYLOAD,
                     'data' => [
                         'message' => 'The password you entered was not valid.'
                     ]
@@ -127,7 +137,7 @@ class LoginController extends UserController
             }
         } else {
             $payload = [
-                'success' => false,
+                'success' => self::UNSUCCESSFUL_PAYLOAD,
                 'data' => [
                     'message' => 'No account found with that email.'
                 ]
