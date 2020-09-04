@@ -91,6 +91,10 @@ class LoginController extends UserController
     /**
      * Enter a user on Twitter.
      *
+     * When the user enters Twitter, some values are stored
+     * in session variables to identify at some point,
+     * if the user is logged in and who is the logged in user.
+     *
      * @param string $email The email of the user.
      * @param string $password The password of the user.
      *
@@ -105,6 +109,7 @@ class LoginController extends UserController
                 session_start();
 
                 $_SESSION['logged_in'] = true;
+                $_SESSION['user_id'] = $user->getId();
 
                 $payload = [
                     'success' => true,
