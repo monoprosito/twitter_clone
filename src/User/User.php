@@ -42,9 +42,13 @@ class User extends Base
      */
     private $_phoneNumber;
 
-    public function __construct($username, $email, $password, $phoneNumber)
+    public function __construct($username, $email, $password, $phoneNumber, $id = null)
     {
-        parent::__construct();
+        if ($id)
+            parent::__construct($id);
+        else
+            parent::__construct();
+
         $this->setUsername($username);
         $this->setEmail($email);
         $this->setPassword($password);

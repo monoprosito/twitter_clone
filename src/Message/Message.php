@@ -31,9 +31,13 @@ class Message extends Base
      */
     private $_text;
 
-    public function __construct($authorId, $text)
+    public function __construct($authorId, $text, $id = null)
     {
-        parent::__construct();
+        if ($id)
+            parent::__construct($id);
+        else
+            parent::__construct();
+
         $this->setAuthorId($authorId);
         $this->setText($text);
     }

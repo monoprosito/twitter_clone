@@ -36,9 +36,13 @@ class Base
      */
     public $createdAt;
 
-    public function __construct()
+    public function __construct($id = null)
     {
-        $this->id = Uuid::guidv4();
+        if ($id)
+            $this->id = $id;
+        else
+            $this->id = Uuid::guidv4();
+
         $this->createdAt = new DateTime('now', new DateTimeZone('-0500'));
     }
 
