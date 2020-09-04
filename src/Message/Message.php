@@ -11,6 +11,7 @@
 namespace TwitterClone\Message;
 
 use TwitterClone\Base;
+use TwitterClone\Engine\Engine;
 
 /**
  * Message Class
@@ -88,5 +89,22 @@ class Message extends Base
     public function setText($text)
     {
         $this->_text = $text;
+    }
+
+    /**
+     * Get all the Message objects from the Storage Engine.
+     *
+     * @return array
+     */
+    public static function getMessageInstances()
+    {
+        $storage = Engine::getStorage()->getAllObjects();
+
+        if (empty($storage))
+            return [];
+        else
+            return array_filter($storage, function($element) {
+                return is_a($element, Message::class);
+            });
     }
 }

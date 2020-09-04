@@ -43,6 +43,12 @@ $tweetButton.addEventListener('click', (event) => {
         body: JSON.stringify(message)
     })
     .then((res) => res.json())
-    .then((data) => console.log(data))
+    .then((data) => {
+        if (data.success) {
+            window.location.reload();
+        } else {
+            alert(data.data.message);
+        }
+    })
     .catch((error) => console.log(error));
 }, false);

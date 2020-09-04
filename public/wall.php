@@ -1,5 +1,10 @@
 <?php
 
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use TwitterClone\Message\Message;
+use TwitterClone\User\User;
+
 // Initialize the session
 session_start();
 
@@ -8,6 +13,8 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     header('location: login.php');
     exit;
 }
+
+$tweets = (object) array_reverse((array) Message::getMessageInstances());
 
 ?>
 <!DOCTYPE html>
@@ -30,39 +37,20 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
             <input type="text" placeholder="Search">
             <input type="text" class="date-filter" placeholder="YYYY.MM.DD"/>
         </div>
-        <div class="row">
+        <div class="row" style="width: 100%;">
             <div class="row tweets">
                 <ul>
-                    <li>
-                        <span><strong>YYYY.MM.DD</strong></span><br>
-                        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris convallis urna enim, eget lacinia nisl commodo id. Maecenas in pretium purus.</span><br>
-                        <span><strong>By: Username</strong></span>
+                    <?php if (empty((array) $tweets)) {?>
+                    <li>Tweets not found.</li>
+                    <?php } else { ?>
+                    <?php foreach ($tweets as $tweet) {?>
+                        <li>
+                        <span><strong><?php echo $tweet->getCreatedAt()->format('h:i a · d M. Y'); ?></strong></span><br>
+                        <span><?php echo $tweet->getText(); ?></span><br>
+                        <span><strong>By: <?php echo User::getUserBy('id', $tweet->getAuthorId())->getUsername(); ?></strong></span>
                     </li>
-                    <li>
-                        <span><strong>YYYY.MM.DD</strong></span><br>
-                        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris convallis urna enim, eget lacinia nisl commodo id. Maecenas in pretium purus.</span><br>
-                        <span><strong>By: Username</strong></span>
-                    </li>
-                    <li>
-                        <span><strong>YYYY.MM.DD</strong></span><br>
-                        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris convallis urna enim, eget lacinia nisl commodo id. Maecenas in pretium purus.</span><br>
-                        <span><strong>By: Username</strong></span>
-                    </li>
-                    <li>
-                        <span><strong>YYYY.MM.DD</strong></span><br>
-                        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris convallis urna enim, eget lacinia nisl commodo id. Maecenas in pretium purus.</span><br>
-                        <span><strong>By: Username</strong></span>
-                    </li>
-                    <li>
-                        <span><strong>YYYY.MM.DD</strong></span><br>
-                        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris convallis urna enim, eget lacinia nisl commodo id. Maecenas in pretium purus.</span><br>
-                        <span><strong>By: Username</strong></span>
-                    </li>
-                    <li>
-                        <span><strong>YYYY.MM.DD</strong></span><br>
-                        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris convallis urna enim, eget lacinia nisl commodo id. Maecenas in pretium purus.</span><br>
-                        <span><strong>By: Username</strong></span>
-                    </li>
+                    <?php } ?>
+                    <?php } ?>
                 </ul>
             </div>
             <div class="row tweet-box">
@@ -73,7 +61,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                 </div>
             </div>
         </div>
-        <a href="http://localhost:8080/twitter_clone/public/logout.php">Log out</a>
+        <a href="http://localhost:8080/twitter_clone/public/logout.php" class="secondary-button logout">Log out</a>
     </div>
     <script src="scripts/wall.js"></script>
 </body>
