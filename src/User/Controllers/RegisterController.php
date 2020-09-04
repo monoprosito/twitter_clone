@@ -74,16 +74,7 @@ class RegisterController extends UserController
             $this->checkPhoneNumber($user->phoneNumber);
             $success = 1;
             $message = 'All the data is valid.';
-        } catch (InvalidUsername $e) {
-            $success = 0;
-            $message = $e->getMessage();
-        } catch (InvalidEmail $e) {
-            $message = $e->getMessage();
-            $success = 0;
-        } catch (InvalidPassword $e) {
-            $success = 0;
-            $message = $e->getMessage();
-        } catch (InvalidPhoneNumber $e) {
+        } catch (InvalidUsername | InvalidEmail | InvalidPassword | InvalidPhoneNumber $e) {
             $success = 0;
             $message = $e->getMessage();
         }
