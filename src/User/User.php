@@ -163,7 +163,6 @@ class User extends Base
             return array_filter($storage, function($element) {
                 return is_a($element, User::class);
             });
-
     }
 
     /**
