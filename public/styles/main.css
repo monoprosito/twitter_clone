@@ -17,7 +17,8 @@ a,
 span,
 li,
 textarea,
-input {
+input,
+label {
     font-family: 'Noto Sans JP', Arial, Helvetica, sans-serif;
     font-size: 19px;
 }

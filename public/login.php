@@ -17,22 +17,22 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true){
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.css">
     <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/signUp.css">
+    <link rel="stylesheet" href="styles/login.css">
     <link rel="stylesheet" href="styles/buttons.css">
     <title>Login on Twitter / Twitter</title>
 </head>
 <body>
     <div class="row main-row">
-        <div class="row main-row">
+        <div class="row">
             <form action="" id="signUpForm">
                 <h1>Login on Twitter</h1>
-                <div class="row">
+                <div class="row form-group">
                     <label for="emailInput">Email</label>
-                    <input type="email" id="emailInput" name="email">
+                    <input type="email" id="emailInput" name="email" placeholder="Enter your email...">
                 </div>
-                <div class="row">
+                <div class="row form-group">
                     <label for="passwordInput">Password</label>
-                    <input type="password" id="passwordInput" name="password">
+                    <input type="password" id="passwordInput" name="password" placeholder="Enter your password...">
                 </div>
                 <span>If you don't already have an account, please <a href="<?php echo "http://localhost:8080/twitter_clone/public/signUp.php"; ?>">sign up</a>.</span>
                 <a class="primary-button" id="submitForm">Log In</a>

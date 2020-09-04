@@ -1,0 +1,23 @@
+input {
+    background-color: #F4F4F4;
+    border: 0px solid transparent;
+    border-radius: 5px;
+    margin-right: 20px;
+    padding: 10px 10px 10px 30px;
+}
+
+label {
+    font-weight: 700;
+    margin: 10px 0;
+}
+
+.main-row {
+    padding: 100px;
+    height: 100%;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+}
