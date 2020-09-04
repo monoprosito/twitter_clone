@@ -22,8 +22,11 @@ $submitButton.addEventListener('click', (event) => {
     })
     .then((res) => res.json())
     .then((data) => {
-        console.log(data);
-        window.location.href = MAIN_ENDPOINT;
+        if (data.success) {
+            window.location.href = MAIN_ENDPOINT;
+        } else {
+            alert(data.data.message);
+        }
     })
     .catch((error) => console.log(error));
 
