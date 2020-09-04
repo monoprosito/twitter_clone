@@ -13,27 +13,29 @@
 </head>
 <body>
     <div class="row main-row">
-        <form action="" id="signUpForm">
-            <h1>Sign up for Twitter</h1>
-            <div class="row">
-                <label for="usernameInput">Username</label>
-                <input type="text" id="usernameInput" name="username">
-            </div>
-            <div class="row">
-                <label for="emailInput">Email</label>
-                <input type="email" id="emailInput" name="email">
-            </div>
-            <div class="row">
-                <label for="passwordInput">Password</label>
-                <input type="password" id="passwordInput" name="password">
-            </div>
-            <div class="row">
-                <label for="phoneNumberInput">Phone</label>
-                <input type="tel" id="phoneNumberInput" name="phoneNumber">
-            </div>
-            <a href="<?php echo "http://localhost:8080/twitter_clone/public/login.php"; ?>">Already have an account?</a>
-            <a class="primary-button" id="submitForm">Submit</a>
-        </form>
+        <div class="row">
+            <form action="" id="signUpForm">
+                <h1>Sign up for Twitter</h1>
+                <div class="row form-group">
+                    <label for="usernameInput">Username</label>
+                    <input type="text" id="usernameInput" name="username" placeholder="Enter your new username...">
+                </div>
+                <div class="row form-group">
+                    <label for="emailInput">Email</label>
+                    <input type="email" id="emailInput" name="email" placeholder="Enter your email...">
+                </div>
+                <div class="row form-group">
+                    <label for="passwordInput">Password</label>
+                    <input type="password" id="passwordInput" name="password" placeholder="Enter your new password...">
+                </div>
+                <div class="row form-group">
+                    <label for="phoneNumberInput">Phone</label>
+                    <input type="tel" id="phoneNumberInput" name="phoneNumber" placeholder="Enter your phone number...">
+                </div>
+                <a href="<?php echo "http://localhost:8080/twitter_clone/public/login.php"; ?>">Already have an account?</a>
+                <a class="primary-button" id="submitForm">Submit</a>
+            </form>
+        </div>
     </div>
     <script src="scripts/signUp.js"></script>
 </body>
