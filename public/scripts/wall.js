@@ -2,15 +2,57 @@ const $tweetMessageArea = document.getElementById('tweetMessage');
 const $tweetLimitArea = document.getElementById('tweetLimit');
 const $tweetButton = document.getElementById('submitForm');
 
+const $filterBySentenceInput = document.getElementById('filter-by-sentence');
+const $filterByDateInput = document.getElementById('filter-by-date');
+const $filterButton = document.getElementById('filter-button');
+
+const FILTER_TWEETS_ENDPOINT = 'http://localhost:8080/twitter_clone/public/wall.php';
+
 const TWEET_MESSAGE_ENDPOINT = 'http://localhost:8080/twitter_clone/public/tweet.php';
 const TWEET_LIMIT_LENGTH = 280;
 const TWEET_LIMIT_WARNING = TWEET_LIMIT_LENGTH - 20;
 
 let charLength = 0;
+let currentURL = new URL(location.href);
+let sentence = currentURL.searchParams.get('sentence');
+let date = currentURL.searchParams.get('date');
+
+if (sentence) {
+    $filterBySentenceInput.value = sentence;
+}
+
+if (date) {
+    $filterByDateInput.value = date;
+}
 
 const countCharacters = (str) => {
     charLength = str.length;
 };
+
+const prepareFiltersURL = () => new Promise((resolve) => {
+    const sentence = $filterBySentenceInput.value;
+    const date = $filterByDateInput.value;
+
+    if (sentence && date) {
+        resolve(`${FILTER_TWEETS_ENDPOINT}?sentence=${encodeURIComponent(sentence)}&date=${encodeURIComponent(date)}`);
+    } else if (sentence) {
+        resolve(`${FILTER_TWEETS_ENDPOINT}?sentence=${encodeURIComponent(sentence)}`);
+    } else if (date) {
+        resolve(`${FILTER_TWEETS_ENDPOINT}?date=${encodeURIComponent(date)}`);
+    } else {
+        resolve(FILTER_TWEETS_ENDPOINT);
+    }
+
+    resolve(FILTER_PARAMETERS_ENDPOINT);
+});
+
+$filterButton.addEventListener('click', async (event) => {
+    event.preventDefault();
+
+    await prepareFiltersURL()
+    .then(data => location.href = encodeURI(data));
+
+}, false);
 
 $tweetMessageArea.addEventListener('keyup', () => {
     countCharacters($tweetMessageArea.value);

@@ -14,7 +14,28 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     exit;
 }
 
-$tweets = (object) array_reverse((array) Message::getMessageInstances());
+// Process the user filters by sentence and/or date
+if (isset($_GET['sentence']) && trim($_GET['sentence'] != null) &&
+    isset($_GET['date']) && trim($_GET['date'] != null)) {
+    $sentence = urldecode(trim($_GET['sentence']));
+    $date = urldecode($_GET['date']);
+
+    $sentenceTweets = Message::filterMessagesBy('Text', $sentence);
+    $tweets = Message::filterMessagesBy('CreatedAt', $date, $sentenceTweets);
+} else if (isset($_GET['sentence']) && trim($_GET['sentence'] != null)) {
+    $sentence = urldecode(trim($_GET['sentence']));
+    $tweets = Message::filterMessagesBy('Text', $sentence);
+} else if (isset($_GET['date']) && trim($_GET['date'] != null)) {
+    $date = urldecode(trim($_GET['date']));
+    $tweets = Message::filterMessagesBy('CreatedAt', $date);
+} else {
+    $tweets = Message::getMessageInstances();
+}
+
+// Sort the tweets in descending order
+usort($tweets, function ($tweet1, $tweet2) {
+    return $tweet2->getCreatedAt()->format('Y-m-d H:i:s') <=> $tweet1->getCreatedAt()->format('Y-m-d H:i:s');
+});
 
 ?>
 <!DOCTYPE html>
@@ -34,8 +55,11 @@ $tweets = (object) array_reverse((array) Message::getMessageInstances());
     <div class="row main-row">
         <h1>Message Posting View</h1>
         <div class="row filters">
-            <input type="text" placeholder="Search">
-            <input type="text" class="date-filter" placeholder="YYYY.MM.DD"/>
+            <label>Filter by sentence</label>
+            <input type="text" id="filter-by-sentence" class="sentence-filter" placeholder="Search, for example: This is a Twitter Clone">
+            <label for="filter-by-date">Filter by date</label>
+            <input type="text" id="filter-by-date" class="date-filter" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="YYYY.MM.DD"/>
+            <a class="secondary-button" id="filter-button">Filter</a>
         </div>
         <div class="row" style="width: 100%;">
             <div class="row tweets">

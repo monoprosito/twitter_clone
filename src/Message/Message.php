@@ -107,4 +107,28 @@ class Message extends Base
                 return is_a($element, Message::class);
             });
     }
+
+    /**
+     * Filter tweets by a property and value.
+     *
+     * @param string $property The key to filter in the tweets
+     * @param string $value The value to filter in the tweets
+     * @param object $objects (optional) An object of tweets to filter
+     *
+     * @return array
+     */
+    public static function filterMessagesBy($property, $value, $objects = null)
+    {
+        if ($objects) {
+            $tweets = $objects;
+        } else {
+            $tweets = self::getMessageInstances();
+        }
+
+        $methodKey = "get$property";
+
+        return array_filter($tweets, function ($tweet) use($methodKey, $value) {
+            return (stripos(($methodKey === 'getCreatedAt') ? $tweet->$methodKey()->format('Y-m-d') : $tweet->$methodKey(), $value) !== false);
+        });
+    }
 }
