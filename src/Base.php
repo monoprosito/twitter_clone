@@ -44,7 +44,7 @@ class Base
             $this->id = Uuid::guidv4();
 
         if ($createdAt)
-            $this->createdAt = DateTime::createFromFormat('Y-m-d H:i:s', $createdAt);
+            $this->createdAt = DateTime::createFromFormat('Y-m-d H:i:s', $createdAt, new DateTimeZone('-0500'));
         else
             $this->createdAt = new DateTime('now', new DateTimeZone('-0500'));
     }
