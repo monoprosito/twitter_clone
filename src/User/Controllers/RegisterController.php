@@ -119,7 +119,7 @@ class RegisterController extends UserController
             $payload = [
                 'success' => self::SUCCESSFUL_PAYLOAD,
                 'data' => [
-                    'message' => 'The user has been created correctly.'
+                    'message' => 'The user has been created correctly. Accept the message and you will be redirected to the Twitter login page.'
                 ]
             ];
         } else {
