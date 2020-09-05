@@ -1,7 +1,9 @@
 <?php
 
+// Initialize the session
 session_start();
 
+// If the user is logged in will be redirect to the wall page
 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true){
     header("location: wall.php");
     exit;
