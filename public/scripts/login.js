@@ -2,9 +2,6 @@ const $emailInput = document.getElementById('emailInput');
 const $passwordInput = document.getElementById('passwordInput');
 const $submitButton = document.getElementById('submitForm');
 
-const LOGIN_USER_ENDPOINT = 'loginUser.php';
-const MAIN_ENDPOINT = 'wall.php';
-
 $submitButton.addEventListener('click', (event) => {
     event.preventDefault();
 

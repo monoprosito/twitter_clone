@@ -41,6 +41,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true){
             </form>
         </div>
     </div>
+    <script src="scripts/urlConstants.js"></script>
     <script src="scripts/login.js"></script>
 </body>
 </html>

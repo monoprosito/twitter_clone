@@ -37,6 +37,7 @@
             </form>
         </div>
     </div>
+    <script src="scripts/urlConstants.js"></script>
     <script src="scripts/signUp.js"></script>
 </body>
 </html>

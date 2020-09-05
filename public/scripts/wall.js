@@ -6,9 +6,6 @@ const $filterBySentenceInput = document.getElementById('filter-by-sentence');
 const $filterByDateInput = document.getElementById('filter-by-date');
 const $filterButton = document.getElementById('filter-button');
 
-const FILTER_TWEETS_ENDPOINT = 'wall.php';
-
-const TWEET_MESSAGE_ENDPOINT = 'tweet.php';
 const TWEET_LIMIT_LENGTH = 280;
 const TWEET_LIMIT_WARNING = TWEET_LIMIT_LENGTH - 20;
 
@@ -34,16 +31,14 @@ const prepareFiltersURL = () => new Promise((resolve) => {
     const date = $filterByDateInput.value;
 
     if (sentence && date) {
-        resolve(`${FILTER_TWEETS_ENDPOINT}?sentence=${encodeURIComponent(sentence)}&date=${encodeURIComponent(date)}`);
+        resolve(`${MAIN_ENDPOINT}?sentence=${encodeURIComponent(sentence)}&date=${encodeURIComponent(date)}`);
     } else if (sentence) {
-        resolve(`${FILTER_TWEETS_ENDPOINT}?sentence=${encodeURIComponent(sentence)}`);
+        resolve(`${MAIN_ENDPOINT}?sentence=${encodeURIComponent(sentence)}`);
     } else if (date) {
-        resolve(`${FILTER_TWEETS_ENDPOINT}?date=${encodeURIComponent(date)}`);
+        resolve(`${MAIN_ENDPOINT}?date=${encodeURIComponent(date)}`);
     } else {
-        resolve(FILTER_TWEETS_ENDPOINT);
+        resolve(MAIN_ENDPOINT);
     }
-
-    resolve(FILTER_PARAMETERS_ENDPOINT);
 });
 
 $filterButton.addEventListener('click', async (event) => {

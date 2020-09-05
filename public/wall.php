@@ -87,6 +87,7 @@ usort($tweets, function ($tweet1, $tweet2) {
         </div>
         <a href="logout.php" class="secondary-button logout">Log out</a>
     </div>
+    <script src="scripts/urlConstants.js"></script>
     <script src="scripts/wall.js"></script>
 </body>
 </html>
