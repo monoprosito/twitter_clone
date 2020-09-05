@@ -38,6 +38,7 @@ class UserController
      */
     public function checkUsername($username)
     {
+        $username = trim($username);
         $pattern = "/^(?=(.*\d){2,})(?=(.*[A-Za-z]){4,})[\w]+$/";
 
         if ($username == null || !preg_match($pattern, $username))
@@ -59,6 +60,7 @@ class UserController
      */
     public function checkEmail($email)
     {
+        $email = trim($email);
         $pattern = "/^[a-z0-9!#$%&\'*+\/=?^_‘{|}~-]+(?:\.[a-z0-9!#$%&\'*+\/=?^_‘{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/";
 
         if ($email == null || !preg_match($pattern, $email))
@@ -78,6 +80,7 @@ class UserController
      */
     public function checkPassword($password)
     {
+        $password = trim($password);
         $pattern = "/^(?=.*[A-Z]+)(?=.*-+)(?=.{6,}$)[\w-]*$/";
 
         if ($password == null || !preg_match($pattern, $password))
@@ -97,6 +100,7 @@ class UserController
      */
     public function checkPhoneNumber($phoneNumber)
     {
+        $phoneNumber = trim($phoneNumber);
         $pattern = "/^\d{10,}$/";
 
         if ($phoneNumber == null || !preg_match($pattern, $phoneNumber))
