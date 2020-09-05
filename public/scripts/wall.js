@@ -6,9 +6,9 @@ const $filterBySentenceInput = document.getElementById('filter-by-sentence');
 const $filterByDateInput = document.getElementById('filter-by-date');
 const $filterButton = document.getElementById('filter-button');
 
-const FILTER_TWEETS_ENDPOINT = 'http://localhost:8080/twitter_clone/public/wall.php';
+const FILTER_TWEETS_ENDPOINT = 'wall.php';
 
-const TWEET_MESSAGE_ENDPOINT = 'http://localhost:8080/twitter_clone/public/tweet.php';
+const TWEET_MESSAGE_ENDPOINT = 'tweet.php';
 const TWEET_LIMIT_LENGTH = 280;
 const TWEET_LIMIT_WARNING = TWEET_LIMIT_LENGTH - 20;
 

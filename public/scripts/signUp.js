@@ -4,8 +4,8 @@ const $passwordInput = document.getElementById('passwordInput');
 const $phoneNumberInput = document.getElementById('phoneNumberInput');
 const $submitButton = document.getElementById('submitForm');
 
-const LOGIN_ENDPOINT = 'http://localhost:8080/twitter_clone/public/login.php';
-const REGISTER_USER_ENDPOINT = 'http://localhost:8080/twitter_clone/public/registerUser.php';
+const LOGIN_ENDPOINT = 'login.php';
+const REGISTER_USER_ENDPOINT = 'registerUser.php';
 
 $submitButton.addEventListener('click', (event) => {
     event.preventDefault();

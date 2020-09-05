@@ -34,7 +34,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true){
                     <label for="passwordInput">Password</label>
                     <input type="password" id="passwordInput" name="password" placeholder="Enter your password...">
                 </div>
-                <span>If you don't already have an account, please <a href="<?php echo "http://localhost:8080/twitter_clone/public/signUp.php"; ?>">sign up</a>.</span>
+                <span>If you don't already have an account, please <a href="<?php echo "signUp.php"; ?>">sign up</a>.</span>
                 <a class="primary-button" id="submitForm">Log In</a>
             </form>
         </div>

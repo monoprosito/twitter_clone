@@ -32,7 +32,7 @@
                     <label for="phoneNumberInput">Phone</label>
                     <input type="tel" id="phoneNumberInput" name="phoneNumber" placeholder="Enter your phone number...">
                 </div>
-                <a href="<?php echo "http://localhost:8080/twitter_clone/public/login.php"; ?>">Already have an account?</a>
+                <a href="<?php echo "login.php"; ?>">Already have an account?</a>
                 <a class="primary-button" id="submitForm">Submit</a>
             </form>
         </div>
