@@ -26,7 +26,7 @@ class FileStorage
      * @var string $_filePath The file path that saves
      * all objects of the application.
      */
-    private $_filePath = 'twitterObject.json';
+    private $_filePath = '../resources/twitter_storage.json';
 
     /**
      * @var array $_objects The object that stores all
